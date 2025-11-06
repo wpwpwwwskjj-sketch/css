@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ZenoSMP — Minecraft Network</title>
+  <meta name="description" content="ZenoSMP — Fun Minecraft network. Join our server, view status, and community." />
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#0f1724;
+      --accent:#ff6b6b;
+      --muted:#9aa4b2;
+      --glass: rgba(255,255,255,0.04);
+      --radius:14px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(800px 400px at 10% 10%, rgba(255,107,107,0.06), transparent 8%),
+        radial-gradient(700px 350px at 90% 90%, rgba(80,120,255,0.04), transparent 8%),
+        var(--bg);
+      color: #e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .container{max-width:1100px;margin:36px auto;padding:24px}
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:28px;
+    }
+    .brand{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+    .logo{
+      width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#ff9b9b,#ff6b6b);
+      display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;box-shadow:0 6px 20px rgba(0,0,0,0.6)
+    }
+    .brand h1{margin:0;font-size:20px;letter-spacing:0.2px}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+
+    nav{display:flex;gap:10px;align-items:center}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;
+      background:var(--glass);color:inherit;border:1px solid rgba(255,255,255,0.04);cursor:pointer;font-weight:600;
+      transition:transform .14s ease, box-shadow .14s ease;
+    }
+    .btn:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.45)}
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns:1fr 360px;
+      gap:22px;
+      align-items:start;
+      margin-bottom:26px;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:var(--radius);
+      padding:20px;
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow:0 8px 30px rgba(2,6,23,0.6);
+    }
+    .hero-left h2{margin:0 0 10px;font-size:28px}
+    .hero-left p{color:var(--muted);margin:0 0 18px;line-height:1.5}
+    .big-join{
+      display:inline-flex;align-items:center;gap:12px;padding:14px 18px;border-radius:12px;background:linear-gradient(90deg,var(--accent),#ff9b9b);
+      color:white;font-weight:700;text-decoration:none;
+      box-shadow:0 12px 30px rgba(255,107,107,0.12);
+    }
+
+    /* Right column: status */
+    .status{
+      display:flex;flex-direction:column;gap:12px;
+    }
+    .server-row{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .server-info{display:flex;gap:12px;align-items:center}
+    .server-icon{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#7bd389,#34d399);display:flex;align-items:center;justify-content:center;font-weight:700;color:#043927}
+    .server-meta{line-height:1}
+    .server-meta .name{font-weight:700}
+    .server-meta .sub{font-size:13px;color:var(--muted)}
+
+    .badge{background:rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;font-weight:700}
+
+    /* Features / cards grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:18px}
+
+    .small{font-size:13px;color:var(--muted)}
+
+    footer{margin-top:28px;padding:20px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02);display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .socials{display:flex;gap:12px}
+    .chip{padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);font-weight:600}
+
+    /* responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr; }
+      .logo{width:54px;height:54px}
+      .server-icon{width:48px;height:48px}
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">AM</div>
+        <div>
+          <h1>ZenoSMP</h1>
+          <p>Play, build, and survive — a friendly Minecraft network</p>
+        </div>
+      </div>
+
+      <nav>
+        <button class="btn" onclick="scrollToSection('servers')">Servers</button>
+        <button class="btn" onclick="scrollToSection('features')">Features</button>
+        <a class="btn" href="#join" id="joinTop">Join Server</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="card hero-left">
+        <h2>Welcome to ZenoSMP</h2>
+        <p class="small">A friendly Minecraft network with survival, creative, minigames and active community events. Cross-version support, custom shop, and daily quests. Click join to copy the server IP and open Minecraft.</p>
+
+        <div style="display:flex;gap:12px;align-items:center;margin-top:14px;">
+          <a class="big-join" id="joinMain" href="#join" onclick="copyIP(event)">
+            Join Server
+            <span style="font-size:12px;opacity:.9" id="ipLabel">play.zenosmp.fun</span>
+          </a>
+          <button class="btn" onclick="showStatus()">Check Status</button>
+        </div>
+
+        <div class="grid" style="margin-top:18px">
+          <div class="card" style="padding:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div style="font-weight:700">Active Players</div>
+                <div class="small" id="playersCount">—</div>
+              </div>
+              <div class="badge" id="statusBadge">Unknown</div>
+            </div>
+          </div>
+
+          <div class="card small">
+            <div style="font-weight:700">Events</div>
+            <div class="small">Weekly build contests, PvP tournaments, giveaways</div>
+          </div>
+
+          <div class="card small">
+            <div style="font-weight:700">Shop</div>
+            <div class="small">In-game shop & ranks (secure payments)</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card status" aria-label="Server status">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-weight:800">Network Status</div>
+          <div class="small">Updated: <span id="updatedAt">—</span></div>
+        </div>
+
+        <div class="server-row" style="margin-top:12px">
+          <div class="server-info">
+            <div class="server-icon">S</div>
+            <div class="server-meta">
+              <div class="name">Survival</div>
+              <div class="sub">Vanilla + quality-of-life plugins</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div class="small">Players</div>
+            <div style="font-weight:800" id="survivalPlayers">—</div>
+          </div>
+        </div>
+
+        <div class="server-row" style="margin-top:10px">
+          <div class="server-info">
+            <div class="server-icon">C</div>
+            <div class="server-meta">
+              <div class="name">Creative</div>
+              <div class="sub">Plots, world-edit creative spaces</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div class="small">Players</div>
+            <div style="font-weight:800" id="creativePlayers">—</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <div class="small">IP</div>
+          <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+            <code style="background:rgba(255,255,255,0.02);padding:8px;border-radius:8px">play.applemc.fun</code>
+            <button class="btn" onclick="copyIP()">Copy IP</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="features">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 style="margin:0">Features</h3>
+        <div class="small">Friendly staff • Custom items • Economy</div>
+      </div>
+
+      <div class="grid" style="margin-top:14px">
+        <div class="card">
+          <h4 style="margin-top:0">Cross-version support</h4>
+          <p class="small">Join from any recent Minecraft version with our proxy.</p>
+        </div>
+
+        <div class="card">
+          <h4 style="margin-top:0">Protected plots & claims</h4>
+          <p class="small">Robust land protection for creative and survival builds.</p>
+        </div>
+
+        <div class="card">
+          <h4 style="margin-top:0">Minigames</h4>
+          <p class="small">Fast queue minigames: parkour, spleef, capture-the-flag.</p>
+        </div>
+
+        <div class="card">
+          <h4 style="margin-top:0">Ranked PvP</h4>
+          <p class="small">Competitive mode with seasonal leaderboards.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>
+        <div style="font-weight:800">AppleMC</div>
+        <div class="small">© <span id="year"></span> AppleMC Network — All rights reserved</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="chip">Discord</div>
+        <div class="chip">Store</div>
+        <div class="chip">Rules</div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Small script: simulate fetching status and copy IP
+    document.getElementById('year').textContent = new Date().getFullYear();
+    function copyIP(e){
+      if(e) e.preventDefault();
+      const ip = 'play.applemc.fun';
+      navigator.clipboard?.writeText(ip).then(()=>{
+        const b = document.getElementById('joinMain');
+        const old = b.textContent;
+        b.textContent = 'Copied!';
+        setTimeout(()=> b.innerHTML = 'Join Server <span style="font-size:12px;opacity:.9" id="ipLabel">'+ip+'</span>',1000);
+      }).catch(()=> alert('Copy: ' + ip));
+    }
+
+    function showStatus(){
+      // placeholder status fetch: replace with real AJAX to your status API
+      updateStatus({
+        playersTotal: 124,
+        survival: 64,
+        creative: 32,
+        updatedAt: new Date().toLocaleString()
+      });
+    }
+
+    function updateStatus(data){
+      document.getElementById('playersCount').textContent = data.playersTotal ?? '—';
+      document.getElementById('survivalPlayers').textContent = data.survival ?? '—';
+      document.getElementById('creativePlayers').textContent = data.creative ?? '—';
+      document.getElementById('statusBadge').textContent = (data.playersTotal!=null) ? 'Online' : 'Offline';
+      document.getElementById('updatedAt').textContent = data.updatedAt ?? '—';
+    }
+
+    // call once to set sample
+    showStatus();
+
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  </script>
+</body>
+</html>
